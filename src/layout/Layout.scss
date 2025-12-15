@@ -1,0 +1,18 @@
+.layout {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #050505;
+
+  .layer-dashboard {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .layer-intro {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+  }
+}

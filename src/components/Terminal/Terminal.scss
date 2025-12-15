@@ -1,0 +1,149 @@
+$gold: #cba136;
+$cyan: #00f0ff;
+$error: #ff3333;
+
+.terminal-container {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: text;
+}
+
+.terminal-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-right: 5px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($gold, 0.3);
+    border-radius: 2px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.line {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  .line-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1;
+  }
+
+  &.system {
+    color: rgba(#fff, 0.4);
+    font-style: italic;
+  }
+
+  &.success {
+    color: $cyan;
+  }
+
+  &.user {
+    color: rgba($gold, 0.9);
+    font-weight: 600;
+  }
+
+  &.ai {
+    color: rgba(#e0e0e0, 1);
+    white-space: pre-wrap;
+  }
+
+  &.error {
+    color: $error;
+    font-weight: bold;
+  }
+
+  &.critical-error {
+    color: $error;
+    background: rgba($error, 0.1);
+    padding: 2px 4px;
+    animation: critical-flash 1s infinite alternate;
+  }
+
+  .status-tick {
+    color: $cyan;
+    margin-left: 5px;
+    font-weight: bold;
+  }
+
+  .cursor-block {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1rem;
+    background-color: #e0e0e0;
+    margin-left: 3px;
+    animation: blink 1s infinite step-end;
+
+    &.user {
+      background-color: $gold;
+    }
+  }
+}
+
+.input-area {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+
+  .prompt {
+    font-size: 0.75rem;
+    padding-right: 5px;
+    font-weight: 600;
+
+    &.online {
+      color: $gold;
+    }
+    &.offline {
+      color: $error;
+    }
+  }
+
+  input[type="text"] {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    caret-color: transparent;
+    padding: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes critical-flash {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.7;
+    box-shadow: 0 0 10px $error;
+  }
+}

@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;800&family=JetBrains+Mono:wght@400&display=swap");
+
+.aegis-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  transition: all 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+  mix-blend-mode: color-dodge;
+
+  &.is-exiting {
+    opacity: 0;
+    transform: scale(4);
+    filter: blur(15px);
+    pointer-events: none;
+  }
+
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(203, 161, 54, 0.05) 51%,
+      transparent 52%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: -1;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .symbol-container {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+
+    .triada {
+      width: 40px;
+      height: 30px;
+      position: relative;
+
+      .edge {
+        position: absolute;
+        background: #cba136;
+        width: 2px;
+        height: 100%;
+        box-shadow: 0 0 10px rgba(203, 161, 54, 0.4);
+
+        &.edge-left {
+          left: 0;
+          transform: skewX(20deg);
+        }
+        &.edge-right {
+          right: 0;
+          transform: skewX(-20deg);
+        }
+      }
+
+      .core-gem {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 15px #cba136, 0 0 30px #cba136;
+        animation: heartbeat 4s infinite ease-in-out;
+      }
+    }
+  }
+
+  .logotype {
+    position: relative;
+
+    .hero-text {
+      font-family: "Inter", sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      letter-spacing: 1rem;
+      margin: 0;
+      line-height: 0.9;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+      position: relative;
+      filter: drop-shadow(0 0 20px rgba(203, 161, 54, 0.2));
+
+      &::before,
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        background: transparent;
+        pointer-events: none;
+      }
+
+      &::before {
+        -webkit-text-stroke: 1px rgba(255, 0, 80, 0.4);
+        transform: translateX(-2px);
+        mix-blend-mode: screen;
+      }
+
+      &::after {
+        -webkit-text-stroke: 1px rgba(0, 255, 255, 0.4);
+        transform: translateX(2px);
+        mix-blend-mode: screen;
+      }
+    }
+  }
+
+  .meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 120%;
+
+    .deco-line {
+      flex-grow: 1;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+    }
+
+    .meta-content {
+      display: flex;
+      gap: 0.8rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+
+      .hash {
+        color: #cba136;
+        opacity: 0.8;
+      }
+      .label {
+        color: #e0e0e0;
+        font-weight: 600;
+      }
+      .coords {
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+  10%,
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.3);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.logotype:hover .hero-text {
+  transition: all 0.3s ease;
+  color: rgba(203, 161, 54, 0.1);
+  -webkit-text-stroke: 1.5px #fff;
+  filter: drop-shadow(0 0 30px rgba(203, 161, 54, 0.6));
+
+  &::before {
+    transform: translateX(-4px);
+  }
+  &::after {
+    transform: translateX(4px);
+  }
+}

@@ -1,0 +1,103 @@
+$gold: #cba136;
+$cyan: #00f0ff;
+$dark-bg: #050505;
+
+$glass-bg: linear-gradient(
+  180deg,
+  rgba(30, 30, 30, 0.6) 0%,
+  rgba(10, 10, 10, 0.9) 100%
+);
+
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: $dark-bg;
+  color: #e0e0e0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 1s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+  }
+
+  .grid-background {
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(
+        rgba(203, 161, 54, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(203, 161, 54, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
+  }
+
+  .main-grid {
+    position: relative;
+    z-index: 2;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      grid-template-areas:
+        "profile stack"
+        "profile projects"
+        "terminal contact";
+    }
+    .area-profile {
+      grid-area: profile;
+    }
+    .area-stack {
+      grid-area: stack;
+    }
+    .area-projects {
+      grid-area: projects;
+    }
+    .area-terminal {
+      grid-area: terminal;
+    }
+    .area-contact {
+      grid-area: contact;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
+    overflow-y: auto;
+
+    .main-grid {
+      height: 100%;
+      grid-template-columns: 350px 1fr 1fr;
+      grid-template-rows: auto 1fr 400px;
+      gap: 3rem;
+      grid-template-areas:
+        "profile stack stack"
+        "profile projects projects"
+        "contact terminal terminal";
+    }
+  }
+}

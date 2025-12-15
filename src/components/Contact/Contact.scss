@@ -1,0 +1,33 @@
+$gold: #cba136;
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+
+  .cyber-btn {
+    /* Propiedades añadidas para que el link parezca botón */
+    text-decoration: none;
+    display: block;
+
+    /* Tu estilo original */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    &:hover {
+      background: $gold;
+      color: #000;
+      border-color: $gold;
+      box-shadow: 0 0 15px rgba($gold, 0.4);
+    }
+  }
+}

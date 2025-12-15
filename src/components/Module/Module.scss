@@ -1,0 +1,164 @@
+$gold: #cba136;
+$glass-bg: linear-gradient(
+  180deg,
+  rgba(30, 30, 30, 0.6) 0%,
+  rgba(10, 10, 10, 0.9) 100%
+);
+
+.cyber-module {
+  background: $glass-bg;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(15px) scale(0.98);
+  animation: module-enter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+
+  .corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: rgba($gold, 0.5);
+    border-style: solid;
+    border-width: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+
+    &.top-left {
+      top: 0;
+      left: 0;
+      border-top-width: 1px;
+      border-left-width: 1px;
+    }
+    &.top-right {
+      top: 0;
+      right: 0;
+      border-top-width: 1px;
+      border-right-width: 1px;
+    }
+    &.bottom-left {
+      bottom: 0;
+      left: 0;
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+    }
+    &.bottom-right {
+      bottom: 0;
+      right: 0;
+      border-bottom-width: 1px;
+      border-right-width: 1px;
+    }
+  }
+
+  &:hover .corner {
+    border-color: $gold;
+    width: 15px;
+    height: 15px;
+    box-shadow: 0 0 10px rgba($gold, 0.2);
+  }
+
+  .module-header {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 100%
+    );
+    flex-shrink: 0;
+
+    .status-light {
+      width: 6px;
+      height: 6px;
+      background: $gold;
+      border-radius: 50%;
+      margin-right: 10px;
+      box-shadow: 0 0 5px $gold;
+    }
+
+    .module-title {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.7rem;
+      color: #fff;
+      opacity: 0.7;
+      letter-spacing: 0.15rem;
+      margin: 0;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-deco {
+      flex-grow: 1;
+      margin-left: 1rem;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+
+      .scan-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20%;
+        height: 100%;
+        background: $gold;
+        opacity: 0.5;
+        animation: scan-horizontal 3s infinite linear;
+      }
+    }
+  }
+
+  .module-content {
+    flex-grow: 1;
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+@keyframes module-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scan-horizontal {
+  0% {
+    left: -20%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
