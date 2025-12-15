@@ -34,7 +34,6 @@ const Terminal = () => {
 
   const connect = () => {
     if (ws.current && ws.current.readyState !== WebSocket.CLOSED) return;
-
     const apiUrl = "https://portfolio-api.ahroi.com";
     const wsUrl = apiUrl.replace(/^http/, "ws");
 
