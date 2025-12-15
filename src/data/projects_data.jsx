@@ -15,8 +15,8 @@ export const PROJECTS_DATA = [
     status: "RUNNING",
     type: "KNOWLEDGE_BASE",
     desc: "Bitácora técnica y plataforma de documentación. Espacio donde profundizo en arquitecturas Self-Hosted y desarrollo desde cero. Implementación SSG (Static Site Generation) enfocada en la velocidad de lectura y SEO, sirviendo como repositorio de mis investigaciones en ingeniería de software.",
-    tags: ["ASTRO", "MARKDOWN", "SSG", "WRITING"],
-    url: "https://blog.tu-dominio.com",
+    tags: ["REACT", "MARKDOWN", "WRITING"],
+    url: "https://blog.ahroi.com/",
     progress: 100,
   },
 ];
