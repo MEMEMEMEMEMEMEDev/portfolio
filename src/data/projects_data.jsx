@@ -5,7 +5,7 @@ export const PROJECTS_DATA = [
     status: "LIVE_DEMO",
     type: "ENGINEERING_DEMO",
     desc: "E-commerce Full Stack desarrollado sin frameworks comerciales. Construido sobre una arquitectura frontend propia (Vanilla TS) que implementa un sistema de reactividad granular basado en Signals y un Virtual DOM ligero. Diseñado para demostrar métricas Core Web Vitals perfectas y optimización extrema al eliminar el 'bloat' de librerías estándar.",
-    tags: ["VANILLA_TS", "NO_FRAMEWORK", "SIGNALS", "CUSTOM_DOM"],
+    tags: ["VANILLA_TS", "NO_FRAMEWORK", "SIGNALS", "CUSTOM_DOM", "SCSS"],
     url: "https://market.tu-dominio.com",
     progress: 90,
   },
