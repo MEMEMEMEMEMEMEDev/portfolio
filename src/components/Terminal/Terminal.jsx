@@ -33,7 +33,14 @@ const Terminal = () => {
   }, [history, isAiTyping]);
 
   const connect = () => {
-    if (ws.current && ws.current.readyState !== WebSocket.CLOSED) return;
+    // Si ya existe y está abierto o conectando, no hacemos nada
+    if (
+      ws.current &&
+      (ws.current.readyState === WebSocket.OPEN ||
+        ws.current.readyState === WebSocket.CONNECTING)
+    )
+      return;
+
     const apiUrl = "https://portfolio-api.ahroi.com";
     const wsUrl = apiUrl.replace(/^http/, "ws");
 
@@ -43,10 +50,22 @@ const Terminal = () => {
     ws.current.onopen = () => {
       console.log("WebSocket Connected!");
       setIsConnected(true);
-      setHistory((prev) => [
-        ...prev,
-        { type: "system", content: "> LINK_ESTABLISHED_WITH_AEGIS_CORE" },
-      ]);
+
+      // FIX 1: Evitar duplicar el mensaje de conexión en el historial
+      setHistory((prev) => {
+        const lastMsg = prev[prev.length - 1];
+        if (
+          lastMsg &&
+          lastMsg.content === "> LINK_ESTABLISHED_WITH_AEGIS_CORE"
+        ) {
+          return prev;
+        }
+        return [
+          ...prev,
+          { type: "system", content: "> LINK_ESTABLISHED_WITH_AEGIS_CORE" },
+        ];
+      });
+
       if (reconnectTimeout.current) clearTimeout(reconnectTimeout.current);
     };
 
@@ -102,6 +121,7 @@ const Terminal = () => {
       setIsConnected(false);
       setIsAiTyping(false);
 
+      // Solo intentamos reconectar si NO fue un cierre manual (controlado por el cleanup)
       reconnectTimeout.current = setTimeout(() => {
         console.log("Attempting reconnect...");
         connect();
@@ -118,7 +138,12 @@ const Terminal = () => {
     inputRef.current?.focus();
 
     return () => {
-      if (ws.current) ws.current.close();
+      // FIX 2: Limpieza correcta para evitar bucles de reconexión al desmontar
+      if (ws.current) {
+        // Anulamos el onclose para que no dispare el setTimeout de reconexión
+        ws.current.onclose = null;
+        ws.current.close();
+      }
       if (reconnectTimeout.current) clearTimeout(reconnectTimeout.current);
     };
   }, []);
